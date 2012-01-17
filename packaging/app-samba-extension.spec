@@ -1,30 +1,26 @@
 
-Name: app-samba-extension
+Name: app-samba-extension-core
+Group: ClearOS/Libraries
 Version: 6.2.0.beta3
 Release: 1%{dist}
 Summary: Samba Extension - APIs and install
 License: LGPLv3
-Group: ClearOS/Libraries
+Packager: ClearFoundation
+Vendor: ClearFoundation
 Source: app-samba-extension-%{version}.tar.gz
 Buildarch: noarch
-
-%description
-Samba Extension description
-
-%package core
-Summary: Samba Extension - APIs and install
 Requires: app-base-core
 Requires: app-openldap-directory-core
 Requires: app-samba-core
 Requires: app-users
 
-%description core
+%description
 Samba Extension description
 
 This package provides the core API and libraries.
 
 %prep
-%setup -q
+%setup -q -n app-samba-extension-%{version}
 %build
 
 %install
@@ -33,7 +29,7 @@ cp -r * %{buildroot}/usr/clearos/apps/samba_extension/
 
 install -D -m 0644 packaging/samba.php %{buildroot}/var/clearos/openldap_directory/extensions/20_samba.php
 
-%post core
+%post
 logger -p local6.notice -t installer 'app-samba-extension-core - installing'
 
 if [ $1 -eq 1 ]; then
@@ -44,7 +40,7 @@ fi
 
 exit 0
 
-%preun core
+%preun
 if [ $1 -eq 0 ]; then
     logger -p local6.notice -t installer 'app-samba-extension-core - uninstalling'
     [ -x /usr/clearos/apps/samba_extension/deploy/uninstall ] && /usr/clearos/apps/samba_extension/deploy/uninstall
@@ -52,7 +48,7 @@ fi
 
 exit 0
 
-%files core
+%files
 %defattr(-,root,root)
 %exclude /usr/clearos/apps/samba_extension/packaging
 %exclude /usr/clearos/apps/samba_extension/tests
