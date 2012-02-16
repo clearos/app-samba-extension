@@ -1,13 +1,14 @@
 
 Name: app-samba-extension
 Epoch: 1
-Version: 1.0.2
+Version: 1.0.4
 Release: 1%{dist}
 Summary: Samba Extension - APIs and install
 License: LGPLv3
 Group: ClearOS/Libraries
 Source: app-samba-extension-%{version}.tar.gz
 Buildarch: noarch
+
 %description
 Samba Extension description
 
