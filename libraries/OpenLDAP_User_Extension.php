@@ -230,7 +230,8 @@ class OpenLDAP_User_Extension extends Engine
 
         $group = new Group_Driver('domain_users');
 
-        $group->add_member($username);
+        if ($group->exists())
+            $group->add_member($username);
     }
 
     /**
