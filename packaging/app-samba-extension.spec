@@ -1,7 +1,7 @@
 
 Name: app-samba-extension
 Epoch: 1
-Version: 1.0.5
+Version: 1.0.8
 Release: 1%{dist}
 Summary: Samba Extension - APIs and install
 License: LGPLv3

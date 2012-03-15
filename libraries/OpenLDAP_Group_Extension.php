@@ -79,6 +79,12 @@ clearos_load_library('samba/Samba');
 class OpenLDAP_Group_Extension extends Engine
 {
     ///////////////////////////////////////////////////////////////////////////////
+    // V A R I A B L E S
+    ///////////////////////////////////////////////////////////////////////////////
+
+    protected $info_map = array();
+
+    ///////////////////////////////////////////////////////////////////////////////
     // M E T H O D S
     ///////////////////////////////////////////////////////////////////////////////
 
@@ -89,6 +95,10 @@ class OpenLDAP_Group_Extension extends Engine
     public function __construct()
     {
         clearos_profile(__METHOD__, __LINE__);
+
+        include clearos_app_base('samba_extension') . '/deploy/group_map.php';
+
+        $this->info_map = $info_map;
     }
 
     /** 
@@ -105,14 +115,6 @@ class OpenLDAP_Group_Extension extends Engine
     {
         clearos_profile(__METHOD__, __LINE__);
 
-        // Bail if Samba has not been initialized
-        //---------------------------------------
-
-        $samba_driver = new OpenLDAP_Driver();
-
-        if (!$samba_driver->is_directory_initialized())
-            return array();
-
         // Process attributes
         //-------------------
 
@@ -124,9 +126,24 @@ class OpenLDAP_Group_Extension extends Engine
         // Add built-in attributes
         //------------------------
 
-        $attributes['sambaSID'] = $sid . '-' . $group_info['gid_number'];
-        $attributes['sambaGroupType'] = 2;
-        $attributes['displayName'] = $group_info['group_name'];
+        if (isset($group_info['extensions']['samba']['sid']))
+            $attributes['sambaSID'] = $group_info['extensions']['samba']['sid'];
+        else
+            $attributes['sambaSID'] = $sid . '-' . $group_info['core']['gid_number'];
+
+        if (isset($group_info['extensions']['samba']['group_type']))
+            $attributes['sambaGroupType'] = $group_info['extensions']['samba']['group_type'];
+        else
+            $attributes['sambaGroupType'] = 2;
+
+        if (isset($group_info['extensions']['samba']['display_name']))
+            $attributes['displayName'] = $group_info['extensions']['samba']['display_name'];
+        else
+            $attributes['displayName'] = $group_info['core']['group_name'];
+
+        if (isset($group_info['extensions']['samba']['sid_list']))
+            $attributes['sambaSIDList'] = $group_info['extensions']['samba']['sid_list'];
+
         $attributes['objectClass'][] = 'sambaGroupMapping';
 
         return $attributes;
@@ -145,22 +162,56 @@ class OpenLDAP_Group_Extension extends Engine
     {
         clearos_profile(__METHOD__, __LINE__);
 
-        // Bail if Samba has not been initialized
-        //---------------------------------------
-
-        $samba_driver = new OpenLDAP_Driver();
-
-        if (!$samba_driver->is_directory_initialized())
-            return array();
-
-        // Return info array
-        //------------------
-
         $info = array();
 
         if (isset($attributes['sambaSID']))
             $info['sid'] = $attributes['sambaSID'][0];
 
         return $info;
+    }
+
+    /** 
+     * Returns user info hash array.
+     *
+     * @return array user info array
+     * @throws Engine_Exception
+     */
+
+    public function get_info_map_hook()
+    {
+        clearos_profile(__METHOD__, __LINE__);
+
+        return $this->info_map;
+    }
+
+    /** 
+     * Update LDAP attributes hook.
+     *
+     * @param array $group_info  group information in hash array
+     * @param array $ldap_object LDAP object
+     *
+     * @return array LDAP attributes
+     * @throws Engine_Exception
+     */
+
+    public function update_attributes_hook($group_info, $ldap_object)
+    {
+        clearos_profile(__METHOD__, __LINE__);
+
+        if (isset($group_info['extensions']['samba']['sid']))
+            $attributes['sambaSID'] = $group_info['extensions']['samba']['sid'];
+
+        if (isset($group_info['extensions']['samba']['group_type']))
+            $attributes['sambaGroupType'] = $group_info['extensions']['samba']['group_type'];
+
+        if (isset($group_info['extensions']['samba']['display_name']))
+            $attributes['displayName'] = $group_info['extensions']['samba']['display_name'];
+
+        if (isset($group_info['extensions']['samba']['sid_list']))
+            $attributes['sambaSIDList'] = $group_info['extensions']['samba']['sid_list'];
+
+        $attributes['objectClass'][] = 'sambaGroupMapping';
+
+        return $attributes;
     }
 }
