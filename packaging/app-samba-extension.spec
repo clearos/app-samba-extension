@@ -10,7 +10,7 @@ Source: app-samba-extension-%{version}.tar.gz
 Buildarch: noarch
 
 %description
-Samba Extension description
+The Samba Extension extends the directory with attributes required for Windows Networking.
 
 %package core
 Summary: Samba Extension - APIs and install
@@ -20,7 +20,7 @@ Requires: app-samba-core
 Requires: app-users
 
 %description core
-Samba Extension description
+The Samba Extension extends the directory with attributes required for Windows Networking.
 
 This package provides the core API and libraries.
 
