@@ -1,9 +1,9 @@
 
 Name: app-samba-extension
 Epoch: 1
-Version: 1.0.10
+Version: 1.1.0
 Release: 1%{dist}
-Summary: Samba Extension - APIs and install
+Summary: Samba Extension - Core
 License: LGPLv3
 Group: ClearOS/Libraries
 Source: app-samba-extension-%{version}.tar.gz
@@ -13,7 +13,7 @@ Buildarch: noarch
 The Samba Extension extends the directory with attributes required for Windows Networking.
 
 %package core
-Summary: Samba Extension - APIs and install
+Summary: Samba Extension - Core
 Requires: app-base-core
 Requires: app-openldap-directory-core
 Requires: app-samba-core
