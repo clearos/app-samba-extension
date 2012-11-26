@@ -60,14 +60,14 @@ use \clearos\apps\base\Shell as Shell;
 use \clearos\apps\openldap_directory\Group_Driver as Group_Driver;
 use \clearos\apps\openldap_directory\Utilities as Utilities;
 use \clearos\apps\samba\OpenLDAP_Driver as OpenLDAP_Driver;
-use \clearos\apps\samba\Samba as Samba;
+use \clearos\apps\samba_common\Samba as Samba;
 
 clearos_load_library('base/Engine');
 clearos_load_library('base/Shell');
 clearos_load_library('openldap_directory/Group_Driver');
 clearos_load_library('openldap_directory/Utilities');
 clearos_load_library('samba/OpenLDAP_Driver');
-clearos_load_library('samba/Samba');
+clearos_load_library('samba_common/Samba');
 
 // Exceptions
 //-----------

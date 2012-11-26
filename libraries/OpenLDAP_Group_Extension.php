@@ -54,11 +54,11 @@ clearos_load_language('samba');
 
 use \clearos\apps\base\Engine as Engine;
 use \clearos\apps\samba\OpenLDAP_Driver as OpenLDAP_Driver;
-use \clearos\apps\samba\Samba as Samba;
+use \clearos\apps\samba_common\Samba as Samba;
 
 clearos_load_library('base/Engine');
 clearos_load_library('samba/OpenLDAP_Driver');
-clearos_load_library('samba/Samba');
+clearos_load_library('samba_common/Samba');
 
 ///////////////////////////////////////////////////////////////////////////////
 // C L A S S
