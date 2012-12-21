@@ -153,7 +153,7 @@ class OpenLDAP_User_Extension extends Engine
 
         $samba_driver = new OpenLDAP_Driver();
 
-        if (!$samba_driver->is_directory_initialized())
+        if (!$samba_driver->is_initialized())
             return array();
 
         // Process attributes
@@ -222,7 +222,7 @@ class OpenLDAP_User_Extension extends Engine
 
         $samba_driver = new OpenLDAP_Driver();
 
-        if (!$samba_driver->is_directory_initialized())
+        if (!$samba_driver->is_initialized())
             return;
 
         // Add user to domain_users group
@@ -252,7 +252,7 @@ class OpenLDAP_User_Extension extends Engine
 
         $samba_driver = new OpenLDAP_Driver();
 
-        if (!$samba_driver->is_directory_initialized())
+        if (!$samba_driver->is_initialized())
             return;
 
         // Generate info array
@@ -297,7 +297,7 @@ class OpenLDAP_User_Extension extends Engine
 
         $samba_driver = new OpenLDAP_Driver();
 
-        if (!$samba_driver->is_directory_initialized())
+        if (!$samba_driver->is_initialized())
             return array();
 
         // Return info map

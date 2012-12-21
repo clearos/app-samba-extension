@@ -40,7 +40,7 @@ require_once $bootstrap . '/bootstrap.php';
 // T R A N S L A T I O N S
 ///////////////////////////////////////////////////////////////////////////////
 
-clearos_load_language('samba_extension');
+clearos_load_language('samba_common');
 
 ///////////////////////////////////////////////////////////////////////////////
 // C O N F I G
@@ -54,7 +54,7 @@ $info_map = array(
         'required' => FALSE,
         'validator' => 'validate_sid',
         'validator_class' => 'samba_extension/OpenLDAP_User_Extension',
-        'description' => lang('samba_sid'),
+        'description' => lang('samba_common_sid'),
         'object_class' => 'sambaSamAccount',
         'attribute' => 'sambaSID'
     ),
