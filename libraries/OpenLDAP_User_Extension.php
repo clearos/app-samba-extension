@@ -320,16 +320,23 @@ class OpenLDAP_User_Extension extends Engine
     {
         clearos_profile(__METHOD__, __LINE__);
 
-        // Return if nothing needs to be done
-        //-----------------------------------
-
-        if (! isset($user_info['extensions']['samba']))
-            return array();
+        $attributes = array();
 
         // Convert to LDAP attributes
         //---------------------------
 
-        $attributes = Utilities::convert_array_to_attributes($user_info['extensions']['samba'], $this->info_map, FALSE);
+        if (isset($user_info['extensions']['samba']))
+            $attributes = Utilities::convert_array_to_attributes($user_info['extensions']['samba'], $this->info_map, FALSE);
+
+        // KLUDGE: do not change the primary group SID for winadmin and guest
+        // This is only required due to the SID messiness in LDAP.
+        //--------------------------------------------------------
+
+        if (($ldap_object['uid'] != 'guest') && ($ldap_object['uid'] != 'winadmin')) {
+            $samba = new Samba();
+            $sid = $samba->get_domain_sid();
+            $attributes['sambaPrimaryGroupSID'] = "$sid-" . Samba::CONSTANT_DOMAIN_USERS_RID;
+        }
 
         // Handle special flag attributes
         //-------------------------------
