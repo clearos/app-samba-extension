@@ -1,7 +1,7 @@
 
 Name: app-samba-extension
 Epoch: 1
-Version: 1.4.14
+Version: 1.5.15
 Release: 1%{dist}
 Summary: Samba Extension - Core
 License: LGPLv3
@@ -56,7 +56,6 @@ exit 0
 %files core
 %defattr(-,root,root)
 %exclude /usr/clearos/apps/samba_extension/packaging
-%exclude /usr/clearos/apps/samba_extension/tests
 %dir /usr/clearos/apps/samba_extension
 /usr/clearos/apps/samba_extension/deploy
 /usr/clearos/apps/samba_extension/language
