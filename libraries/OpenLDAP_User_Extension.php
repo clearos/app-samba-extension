@@ -322,6 +322,12 @@ class OpenLDAP_User_Extension extends Engine
 
         $attributes = array();
 
+        // Return "add" attributes if this is new
+        //---------------------------------------
+
+        if (! in_array('sambaSamAccount', $ldap_object['objectClass']))
+             return $this->add_attributes_hook($user_info, $ldap_object);
+
         // Convert to LDAP attributes
         //---------------------------
 
