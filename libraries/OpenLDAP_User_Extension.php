@@ -194,7 +194,7 @@ class OpenLDAP_User_Extension extends Engine
 
         $attributes['sambaPrimaryGroupSID'] = "$sid-" . Samba::CONSTANT_DOMAIN_USERS_RID;
         $attributes['sambaDomainName'] = $domain;
-        $attributes['sambaNTPassword'] = $ldap_object['clearMicrosoftNTPassword'];
+        $attributes['sambaNTPassword'] = isset($ldap_object['clearMicrosoftNTPassword']) ? $ldap_object['clearMicrosoftNTPassword'] : '';
         $attributes['sambaPwdLastSet'] = time();
         $attributes['sambaBadPasswordCount'] = 0;
         $attributes['sambaBadPasswordTime'] = 0;
